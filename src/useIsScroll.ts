@@ -15,6 +15,7 @@ import {
   ScrollPosition,
   ScrollSize,
 } from "./useIsScroll.types"
+import { getInitialScrollValues } from "./utils"
 
 const SCROLL_Y_THRESHOLD_PX = 16
 const SCROLL_X_THRESHOLD_PX = 16
@@ -49,10 +50,16 @@ export default function useIsScroll({
   xThreshold,
   yThreshold,
 }: UseIsScrollOption = {}): UseIsScrollReturn {
-  const [scrollX, setScrollX] = useState<number>(0)
-  const [scrollY, setScrollY] = useState<number>(0)
-  const [scrollWidth, setScrollWidth] = useState<number>(0)
-  const [scrollHeight, setScrollHeight] = useState<number>(0)
+  const initialValues = getInitialScrollValues()
+
+  const [scrollX, setScrollX] = useState<number>(initialValues.scrollX)
+  const [scrollY, setScrollY] = useState<number>(initialValues.scrollY)
+  const [scrollWidth, setScrollWidth] = useState<number>(
+    initialValues.scrollWidth
+  )
+  const [scrollHeight, setScrollHeight] = useState<number>(
+    initialValues.scrollHeight
+  )
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
 
   function setIsScrolledFromThreshold({ scrollX, scrollY }: ScrollPosition) {
@@ -83,6 +90,9 @@ export default function useIsScroll({
   }
 
   function handleWindowScroll() {
+    // SSR safety check
+    if (typeof window === "undefined") return
+
     const { scrollX, scrollY } = window
     const { scrollWidth, scrollHeight } = document.documentElement
 
@@ -92,6 +102,9 @@ export default function useIsScroll({
   }
 
   useEffect(() => {
+    // SSR safety check
+    if (typeof window === "undefined") return
+
     // Initial scroll
     handleWindowScroll()
 
