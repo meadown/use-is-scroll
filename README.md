@@ -59,6 +59,12 @@ or with yarn:
 yarn add @meadown/useisscroll
 ```
 
+or with pnpm:
+
+```bash
+pnpm add @meadown/useisscroll
+```
+
 ## Features
 
 ### Core Functionality
@@ -157,6 +163,31 @@ function ScrollTracker() {
 ```
 
 ### Real-World Examples
+
+#### Dynamic Threshold Based on Screen Size
+
+```tsx
+import { useIsScroll } from "@meadown/useisscroll"
+import { useState, useEffect } from "react"
+
+function ResponsiveScrollDetection() {
+  const [threshold, setThreshold] = useState(50)
+  const { isScrolled } = useIsScroll({ yThreshold: threshold })
+
+  useEffect(() => {
+    // Adjust threshold based on screen width
+    const updateThreshold = () => {
+      setThreshold(window.innerWidth < 768 ? 30 : 50)
+    }
+
+    updateThreshold()
+    window.addEventListener("resize", updateThreshold)
+    return () => window.removeEventListener("resize", updateThreshold)
+  }, [])
+
+  return <div>{isScrolled ? "Scrolled!" : "At top"}</div>
+}
+```
 
 #### Sticky Navigation Bar
 
@@ -345,7 +376,9 @@ This hook is optimized for performance with the following features:
 
 - Passive event listeners to improve scroll performance
 - Single scroll event listener per hook instance
+- Optimized with single state update per scroll event (prevents multiple re-renders)
 - Automatic cleanup on component unmount
+- Efficient dependency tracking for dynamic option changes
 
 **Best Practices:**
 
@@ -381,10 +414,11 @@ function MyComponent() {
 - Make sure you're using the hook only in client-side components
 - For Next.js, add `"use client"` directive or use dynamic imports with `ssr: false`
 
-**Hook doesn't update when options change:**
+**Dynamic threshold updates:**
 
-- This is expected behavior. The hook initializes with the provided options and doesn't react to option changes
-- If you need dynamic thresholds, consider recreating the component or managing state differently
+- The hook automatically responds to changes in `direction`, `xThreshold`, and `yThreshold` options
+- When you change these values, the scroll listener is recreated with the new configuration
+- This allows for dynamic threshold adjustments based on your component state
 
 **High CPU usage:**
 
@@ -428,8 +462,12 @@ Contributions are welcome! If you'd like to contribute:
 git clone https://github.com/meadown/useisscroll.git
 cd useisscroll
 
-# Install dependencies
+# Install dependencies (choose one)
 npm install
+# or
+yarn install
+# or
+pnpm install
 
 # Build the package
 npm run build
