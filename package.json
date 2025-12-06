@@ -1,0 +1,63 @@
+{
+  "name": "@meadown/use-is-scroll",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A React hook to track window scroll position and document dimensions",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run build:types && npm run build:cjs && npm run build:esm",
+    "build:types": "tsc --project tsconfig.types.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "clean": "rm -rf dist",
+    "dev": "npm run build -- --watch",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "scroll",
+    "scroll-position",
+    "scroll-tracking",
+    "useScroll",
+    "typescript"
+  ],
+  "author": "Dewan Mobashirul",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meadown/useisscroll.git"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/react": "^18"
+  }
+}
