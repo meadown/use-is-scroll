@@ -1,4 +1,4 @@
-# @meadown/useisscroll
+# @meadown/use-is-scroll
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-16.8%2B-61dafb.svg)](https://react.dev/)
@@ -18,7 +18,7 @@ All rights reserved
 
 ## Table of Contents
 
-- [@meadown/useisscroll](#meadownuseisscroll)
+- [@meadown/use-is-scroll](#meadownuse-is-scroll)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Features](#features)
@@ -50,19 +50,19 @@ All rights reserved
 ## Installation
 
 ```bash
-npm install @meadown/useisscroll
+npm install @meadown/use-is-scroll
 ```
 
 or with yarn:
 
 ```bash
-yarn add @meadown/useisscroll
+yarn add @meadown/use-is-scroll
 ```
 
 or with pnpm:
 
 ```bash
-pnpm add @meadown/useisscroll
+pnpm add @meadown/use-is-scroll
 ```
 
 ## Features
@@ -101,7 +101,7 @@ This hook is perfect for implementing:
 ### Basic Example (Vertical Scrolling)
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function MyComponent() {
   const { scrollY, isScrolled } = useIsScroll()
@@ -118,7 +118,7 @@ function MyComponent() {
 ### Horizontal Scrolling with Custom Threshold
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function MyComponent() {
   const { scrollX, isScrolled } = useIsScroll({
@@ -138,7 +138,7 @@ function MyComponent() {
 ### Complete Example
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function ScrollTracker() {
   const { scrollX, scrollY, isScrolled, scrollWidth, scrollHeight } =
@@ -167,7 +167,7 @@ function ScrollTracker() {
 #### Dynamic Threshold Based on Screen Size
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 import { useState, useEffect } from "react"
 
 function ResponsiveScrollDetection() {
@@ -192,7 +192,7 @@ function ResponsiveScrollDetection() {
 #### Sticky Navigation Bar
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function StickyNav() {
   const { isScrolled } = useIsScroll({ yThreshold: 50 })
@@ -218,7 +218,7 @@ function StickyNav() {
 #### Scroll-to-Top Button
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function ScrollToTopButton() {
   const { isScrolled, scrollY } = useIsScroll({ yThreshold: 300 })
@@ -256,7 +256,7 @@ function ScrollToTopButton() {
 #### Reading Progress Bar
 
 ```tsx
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function ReadingProgress() {
   const { scrollY, scrollHeight } = useIsScroll()
@@ -315,7 +315,7 @@ import {
   UseIsScrollReturn,
   ScrollPosition,
   ScrollSize,
-} from "@meadown/useisscroll"
+} from "@meadown/use-is-scroll"
 ```
 
 ## Browser Compatibility
@@ -344,7 +344,7 @@ This hook is designed for client-side use and includes the `"use client"` direct
 
 ```tsx
 "use client"
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 export default function MyComponent() {
   const { scrollY, isScrolled } = useIsScroll()
@@ -390,7 +390,7 @@ This hook is optimized for performance with the following features:
 
 ```tsx
 import { useMemo } from "react"
-import { useIsScroll } from "@meadown/useisscroll"
+import { useIsScroll } from "@meadown/use-is-scroll"
 
 function MyComponent() {
   const { scrollY, isScrolled } = useIsScroll()
@@ -459,8 +459,8 @@ Contributions are welcome! If you'd like to contribute:
 
 ```bash
 # Clone the repository
-git clone https://github.com/meadown/useisscroll.git
-cd useisscroll
+git clone https://github.com/meadown/use-is-scroll.git
+cd use-is-scroll
 
 # Install dependencies (choose one)
 npm install

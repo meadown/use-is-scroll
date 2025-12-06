@@ -1,5 +1,5 @@
 {
-  "name": "@meadown/useisscroll",
+  "name": "@meadown/use-is-scroll",
   "version": "1.0.0",
   "publishConfig": {
     "access": "public"
@@ -46,7 +46,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meadown/useisscroll.git"
+    "url": "https://github.com/meadown/use-is-scroll.git"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
