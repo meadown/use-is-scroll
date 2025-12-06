@@ -12,8 +12,6 @@ import { useState, useEffect } from "react"
 import {
   UseIsScrollReturn,
   UseIsScrollOption,
-  ScrollPosition,
-  ScrollSize,
 } from "./useIsScroll.types"
 import { getInitialScrollValues } from "./utils"
 
@@ -52,58 +50,50 @@ export default function useIsScroll({
 }: UseIsScrollOption = {}): UseIsScrollReturn {
   const initialValues = getInitialScrollValues()
 
-  const [scrollX, setScrollX] = useState<number>(initialValues.scrollX)
-  const [scrollY, setScrollY] = useState<number>(initialValues.scrollY)
-  const [scrollWidth, setScrollWidth] = useState<number>(
-    initialValues.scrollWidth
-  )
-  const [scrollHeight, setScrollHeight] = useState<number>(
-    initialValues.scrollHeight
-  )
-  const [isScrolled, setIsScrolled] = useState<boolean>(false)
-
-  function setIsScrolledFromThreshold({ scrollX, scrollY }: ScrollPosition) {
+  // Combine all scroll state into a single object to prevent multiple re-renders
+  const [scrollState, setScrollState] = useState<UseIsScrollReturn>(() => {
     const xThresholdValue = xThreshold ?? SCROLL_X_THRESHOLD_PX
     const yThresholdValue = yThreshold ?? SCROLL_Y_THRESHOLD_PX
-    if (direction === "x") {
-      setIsScrolled(scrollX > xThresholdValue)
-      return
+    const isScrolled =
+      direction === "x"
+        ? initialValues.scrollX > xThresholdValue
+        : initialValues.scrollY > yThresholdValue
+
+    return {
+      scrollX: initialValues.scrollX,
+      scrollY: initialValues.scrollY,
+      scrollWidth: initialValues.scrollWidth,
+      scrollHeight: initialValues.scrollHeight,
+      isScrolled,
     }
-    if (direction === "y") {
-      setIsScrolled(scrollY > yThresholdValue)
-      return
-    }
-
-    // Default to vertical scroll check
-    const thresholdValue = yThresholdValue
-    setIsScrolled(scrollY > thresholdValue)
-  }
-
-  function setScrollPosition({ scrollX, scrollY }: ScrollPosition) {
-    setScrollX(scrollX)
-    setScrollY(scrollY)
-  }
-
-  function setDocumentScrollSize({ scrollWidth, scrollHeight }: ScrollSize) {
-    setScrollWidth(scrollWidth)
-    setScrollHeight(scrollHeight)
-  }
-
-  function handleWindowScroll() {
-    // SSR safety check
-    if (typeof window === "undefined") return
-
-    const { scrollX, scrollY } = window
-    const { scrollWidth, scrollHeight } = document.documentElement
-
-    setScrollPosition({ scrollX, scrollY })
-    setDocumentScrollSize({ scrollWidth, scrollHeight })
-    setIsScrolledFromThreshold({ scrollX, scrollY })
-  }
+  })
 
   useEffect(() => {
     // SSR safety check
     if (typeof window === "undefined") return
+
+    const xThresholdValue = xThreshold ?? SCROLL_X_THRESHOLD_PX
+    const yThresholdValue = yThreshold ?? SCROLL_Y_THRESHOLD_PX
+
+    function handleWindowScroll() {
+      const { scrollX, scrollY } = window
+      const { scrollWidth, scrollHeight } = document.documentElement
+
+      // Calculate isScrolled based on current direction and threshold
+      const isScrolled =
+        direction === "x"
+          ? scrollX > xThresholdValue
+          : scrollY > yThresholdValue
+
+      // Single state update to prevent multiple re-renders
+      setScrollState({
+        scrollX,
+        scrollY,
+        scrollWidth,
+        scrollHeight,
+        isScrolled,
+      })
+    }
 
     // Initial scroll
     handleWindowScroll()
@@ -115,14 +105,7 @@ export default function useIsScroll({
     return () => {
       window.removeEventListener("scroll", handleWindowScroll)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [direction, xThreshold, yThreshold])
 
-  return {
-    scrollX,
-    scrollY,
-    isScrolled,
-    scrollWidth,
-    scrollHeight,
-  }
+  return scrollState
 }
