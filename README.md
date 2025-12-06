@@ -1,5 +1,15 @@
 # @meadown/useisscroll
 
+```_
+AUTHOR
+Dewan Mobashirul
+Copyright (c) 2025 Dewan Mobashirul
+All rights reserved
+```
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Dewan%20Mobashirul-blue?style=flat&logo=linkedin)](https://linkedin.com/in/dewan-meadown)
+[![GitHub](https://img.shields.io/badge/GitHub-meadown-black?style=flat&logo=github)](https://github.com/meadown)
+
 A lightweight React hook to track window scroll position and document dimensions.
 
 ## Installation
@@ -28,7 +38,7 @@ yarn add @meadown/useisscroll
 ### Basic Example (Vertical Scrolling)
 
 ```tsx
-import { useIsScroll } from '@meadown/useisscroll'
+import { useIsScroll } from "@meadown/useisscroll"
 
 function MyComponent() {
   const { scrollY, isScrolled } = useIsScroll()
@@ -36,7 +46,7 @@ function MyComponent() {
   return (
     <div>
       <p>Scroll Y: {scrollY}px</p>
-      <p>Has scrolled: {isScrolled ? 'Yes' : 'No'}</p>
+      <p>Has scrolled: {isScrolled ? "Yes" : "No"}</p>
     </div>
   )
 }
@@ -45,18 +55,18 @@ function MyComponent() {
 ### Horizontal Scrolling with Custom Threshold
 
 ```tsx
-import { useIsScroll } from '@meadown/useisscroll'
+import { useIsScroll } from "@meadown/useisscroll"
 
 function MyComponent() {
   const { scrollX, isScrolled } = useIsScroll({
-    direction: 'x',
-    xThreshold: 32
+    direction: "x",
+    xThreshold: 32,
   })
 
   return (
     <div>
       <p>Scroll X: {scrollX}px</p>
-      <p>Has scrolled horizontally: {isScrolled ? 'Yes' : 'No'}</p>
+      <p>Has scrolled horizontally: {isScrolled ? "Yes" : "No"}</p>
     </div>
   )
 }
@@ -65,20 +75,25 @@ function MyComponent() {
 ### Complete Example
 
 ```tsx
-import { useIsScroll } from '@meadown/useisscroll'
+import { useIsScroll } from "@meadown/useisscroll"
 
 function ScrollTracker() {
-  const { scrollX, scrollY, isScrolled, scrollWidth, scrollHeight } = useIsScroll({
-    direction: 'y',
-    yThreshold: 100
-  })
+  const { scrollX, scrollY, isScrolled, scrollWidth, scrollHeight } =
+    useIsScroll({
+      direction: "y",
+      yThreshold: 100,
+    })
 
   return (
     <div>
       <h2>Scroll Information</h2>
-      <p>Scroll Position: X={scrollX}px, Y={scrollY}px</p>
-      <p>Document Size: {scrollWidth}px × {scrollHeight}px</p>
-      <p>Scrolled past threshold: {isScrolled ? 'Yes' : 'No'}</p>
+      <p>
+        Scroll Position: X={scrollX}px, Y={scrollY}px
+      </p>
+      <p>
+        Document Size: {scrollWidth}px × {scrollHeight}px
+      </p>
+      <p>Scrolled past threshold: {isScrolled ? "Yes" : "No"}</p>
     </div>
   )
 }
@@ -115,16 +130,10 @@ import {
   UseIsScrollOption,
   UseIsScrollReturn,
   ScrollPosition,
-  ScrollSize
-} from '@meadown/useisscroll'
+  ScrollSize,
+} from "@meadown/useisscroll"
 ```
 
 ## License
 
-MIT
-
-## Author
-
-Dewan Mobashirul
-
-Copyright (c) 2025 Dewan Mobashirul. All rights reserved.
+[MIT](./LICENSE)
