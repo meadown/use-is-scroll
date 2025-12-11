@@ -13,6 +13,8 @@ tsconfig*.json
 *.test.*
 *.spec.*
 coverage/
+jest.config.js
+jest.setup.js
 
 # CI/CD
 .github/
